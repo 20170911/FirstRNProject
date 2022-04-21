@@ -3,8 +3,17 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import codePush from "react-native-code-push";
  
 export default class App extends React.Component {
+
+  componentWillMount() {
+    // 更新重启之后，防止回滚
+    codePush.notifyAppReady();
+    // 在加载完了可以允许重启
+    codePush.disallowRestart();
+  }
  
   componentDidMount() {
+    //在加载完了可以允许重启
+    codePush.allowRestart();
     codePush.sync({ installMode: codePush.InstallMode.IMMEDIATE });
   }
  
