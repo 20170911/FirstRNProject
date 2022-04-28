@@ -3,8 +3,6 @@ package com.firstrnproject;
 import android.app.Application;
 import android.content.Context;
 
-import androidx.annotation.Nullable;
-
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
@@ -12,9 +10,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.config.ReactFeatureFlags;
 import com.facebook.soloader.SoLoader;
-import com.firstrnproject.newarchitecture.MainApplicationReactNativeHost;
 import com.microsoft.codepush.react.CodePush;
-import com.microsoft.codepush.react.ReactInstanceHolder;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -24,12 +20,11 @@ import java.util.List;
  */
 public class MainApplication extends Application implements ReactApplication {
 
-    private final CodePushReactNativeHost mReactNativeHost = new CodePushReactNativeHost(this);
+    private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
 
-    private static class CodePushReactNativeHost extends ReactNativeHost implements ReactInstanceHolder{
-
-        protected CodePushReactNativeHost(Application application) {
-            super(application);
+        @Override
+        protected String getJSBundleFile() {
+            return CodePush.getJSBundleFile();
         }
 
         @Override
@@ -41,35 +36,32 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             @SuppressWarnings("UnnecessaryLocalVariable")
             List<ReactPackage> packages = new PackageList(this).getPackages();
+            // 先移除auto link的code push包，再手动添加
+            for (ReactPackage rp : packages) {
+                if (rp instanceof CodePush) {
+                    packages.remove(rp);
+                    break;
+                }
+            }
+            packages.add(new CodePush(getResources().getString(R.string.CodePushDeploymentKey)
+                    , getApplicationContext(), BuildConfig.DEBUG, getResources().getString(R.string.CodePushServerUrl)));
             return packages;
-        }
-
-        @Nullable
-        @Override
-        protected String getJSBundleFile() {
-            return CodePush.getJSBundleFile();
         }
 
         @Override
         protected String getJSMainModuleName() {
             return "index";
         }
-    }
+    };
 
-    private final ReactNativeHost mNewArchitectureNativeHost = new MainApplicationReactNativeHost(this);
 
     @Override
     public ReactNativeHost getReactNativeHost() {
-        if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
-            return mNewArchitectureNativeHost;
-        } else {
-            return mReactNativeHost;
-        }
+        return mReactNativeHost;
     }
 
     @Override
     public void onCreate() {
-        CodePush.setReactInstanceHolder((ReactInstanceHolder) mReactNativeHost);
         super.onCreate();
         // If you opted-in for the New Architecture, we enable the TurboModule system
         ReactFeatureFlags.useTurboModules = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED;
@@ -88,13 +80,8 @@ public class MainApplication extends Application implements ReactApplication {
             Context context, ReactInstanceManager reactInstanceManager) {
         if (BuildConfig.DEBUG) {
             try {
-        /*
-         We use reflection here to pick up the class that initializes Flipper,
-        since Flipper library is not available in release mode
-        */
                 Class<?> aClass = Class.forName("com.firstrnproject.ReactNativeFlipper");
-                aClass
-                        .getMethod("initializeFlipper", Context.class, ReactInstanceManager.class)
+                aClass.getMethod("initializeFlipper", Context.class, ReactInstanceManager.class)
                         .invoke(null, context, reactInstanceManager);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();

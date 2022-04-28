@@ -140,7 +140,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.1"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
         if (isNewArchitectureEnabled()) {
@@ -224,12 +224,12 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
-
-            resValue "string", "CodePushDeploymentKey", '"kCURm42B0ApDvP080zbQ1myZdcY-nNocUutth"'
+//            resValue "string", "CodePushDeploymentKey", '"mwVszfnxhT6DzFeJHt88QhPKvPCk4ksvOXqog"'
+            resValue "string", "CodePushDeploymentKey", '"yTA5ETSdmcqHBLEBRdP2lfYf0Qdh4ksvOXqog"'
         }
         releaseStaging {
-            // 预发布环境Staging的key，由于历史原因，直接使用了debug
-            resValue "string", "CodePushDeploymentKey", '"kCURm42B0ApDvP080zbQ1myZdcY-nNocUutth"'
+//            resValue "string", "CodePushDeploymentKey", '"mwVszfnxhT6DzFeJHt88QhPKvPCk4ksvOXqog"'
+            resValue "string", "CodePushDeploymentKey", '"yTA5ETSdmcqHBLEBRdP2lfYf0Qdh4ksvOXqog"'
             matchingFallbacks = ['release']
         }
         release {
@@ -239,7 +239,8 @@ android {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
 
-            resValue "string", "CodePushDeploymentKey", '"qQzdY5lrv1GqDJQgKYAaJnWNxFXMtQvwroXYT"'
+//            resValue "string", "CodePushDeploymentKey", '"ZvlJDlpYJuoQU54RMbbdRtSHzI4b4ksvOXqog"'
+            resValue "string", "CodePushDeploymentKey", '"x4Erpbv7suZKbPUAbGdZThWd5TVO4ksvOXqog"'
         }
     }
 
