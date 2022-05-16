@@ -34,7 +34,6 @@ public class MainApplication extends Application implements ReactApplication {
 
         @Override
         protected List<ReactPackage> getPackages() {
-            @SuppressWarnings("UnnecessaryLocalVariable")
             List<ReactPackage> packages = new PackageList(this).getPackages();
             // 先移除auto link的code push包，再手动添加
             for (ReactPackage rp : packages) {
@@ -45,6 +44,7 @@ public class MainApplication extends Application implements ReactApplication {
             }
             packages.add(new CodePush(getResources().getString(R.string.CodePushDeploymentKey)
                     , getApplicationContext(), BuildConfig.DEBUG, getResources().getString(R.string.CodePushServerUrl)));
+            packages.add(new CustomToastPackage());
             return packages;
         }
 

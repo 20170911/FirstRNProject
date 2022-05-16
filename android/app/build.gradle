@@ -224,12 +224,10 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
-//            resValue "string", "CodePushDeploymentKey", '"mwVszfnxhT6DzFeJHt88QhPKvPCk4ksvOXqog"'
-            resValue "string", "CodePushDeploymentKey", '"yTA5ETSdmcqHBLEBRdP2lfYf0Qdh4ksvOXqog"'
+            resValue "string", "CodePushDeploymentKey", '"DW5S3PJScmVLfkTSuXvDJQy9y0N54ksvOXqog"'
         }
         releaseStaging {
-//            resValue "string", "CodePushDeploymentKey", '"mwVszfnxhT6DzFeJHt88QhPKvPCk4ksvOXqog"'
-            resValue "string", "CodePushDeploymentKey", '"yTA5ETSdmcqHBLEBRdP2lfYf0Qdh4ksvOXqog"'
+            resValue "string", "CodePushDeploymentKey", '"DW5S3PJScmVLfkTSuXvDJQy9y0N54ksvOXqog"'
             matchingFallbacks = ['release']
         }
         release {
@@ -239,8 +237,7 @@ android {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
 
-//            resValue "string", "CodePushDeploymentKey", '"ZvlJDlpYJuoQU54RMbbdRtSHzI4b4ksvOXqog"'
-            resValue "string", "CodePushDeploymentKey", '"x4Erpbv7suZKbPUAbGdZThWd5TVO4ksvOXqog"'
+            resValue "string", "CodePushDeploymentKey", '"Ze2xsycWP45gMD7uJpySLOmnjeiL4ksvOXqog"'
         }
     }
 
