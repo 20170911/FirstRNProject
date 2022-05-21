@@ -1,26 +1,33 @@
 import * as React from 'react';
-import {Text, View, StyleSheet, Button} from 'react-native';
+import {Text, View, StyleSheet} from 'react-native';
 import ToastExample from './ToastExample';
 import {ToastAndroid} from 'react-native';
+import {Button, Checkbox, Provider, Toast} from '@ant-design/react-native';
 
-const App = props => {
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>ToastExample</Text>
-      <Button
-        title={'ToastExample'}
-        onPress={() => {
-          ToastExample.show('ToastExample', ToastExample.SHORT);
-        }}
-      />
+    <Provider>
+      <View style={styles.container}>
+        <Text>ToastExample</Text>
+        <Button
+          onPress={() => {
+            ToastExample.show('ToastExample', ToastExample.SHORT);
+          }}>
+          ToastExample
+        </Button>
 
-      <Button
-        title={'ToastAndroid'}
-        onPress={() => {
-          ToastAndroid.show('ToastAndroid', ToastAndroid.SHORT);
-        }}
-      />
-    </View>
+        <Button
+          onPress={() => {
+            ToastAndroid.show('ToastAndroid', ToastAndroid.SHORT);
+          }}>
+          ToastAndroid
+        </Button>
+        <Button onPress={() => Toast.fail('This is a toast tips')}>
+          Start
+        </Button>
+        <Checkbox>1232</Checkbox>
+      </View>
+    </Provider>
   );
 };
 
